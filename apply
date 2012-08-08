@@ -1,0 +1,19 @@
+#!/bin/ksh
+
+# apply: apply a command (arg 1) to the lines in the file (arg 2)
+# apply: apply a command (arg 1) to the remaining list of args (args 2-n)
+
+cmd=$1;shift
+if [ $# -gt 1 ]
+then
+	# list version, apply cmd to each remaining arg
+	list=$*
+else
+	# file version, open the file, read each line, and apply cmd to it
+	infile=$1
+	list=`cat $infile`
+fi
+for i in $list
+do
+	eval $cmd $i
+done
